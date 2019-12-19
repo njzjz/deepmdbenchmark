@@ -1,2 +1,2 @@
 from setuptools import setup
-setup(requires=['pytest-benchmark'])
+setup(install_requires=['pytest-benchmark'])
