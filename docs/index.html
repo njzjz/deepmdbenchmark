@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>DeePMD-kit Benchmark Ranking</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #b5d6e6;
+            font-weight: normal;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: Gray;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="ranking">
+        <tr>
+            <th>DeePMD-kit version</th>
+            <th>TensorFlow version</th>
+            <th>Hardware</th>
+            <th>Time per step (s)</th>
+        </tr>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script>
+        AV.init({
+            appId: "lzEcblV5heONQPJnSdPKCYnz-MdYXbMMI",
+            appKey: "RwbeYLG4kIOQYRKQcIzDCTnq",
+            serverURLs: "https://deepmdbenchmarkwebapi.njzjz.win"
+        });
+        var query = new AV.Query('deepmdbenchmark');
+        query.ascending('time');
+        query.find().then(function (todos) {
+            todos.forEach(todo => {
+                var newRow = "<tr><td>" + todo.get("deepmd_version") + "</td><td>" + todo.get("tf_version") + "</td><td>" + todo.get("hardware_name") + "</td><td>" + todo.get("time").toFixed(7) + "</td></tr>"
+                $("#ranking tr:last").after(newRow);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,2 +1,12 @@
 from setuptools import setup
-setup(install_requires=['pytest-benchmark'])
+setup(
+    name="deepmdbenchmark",
+    install_requires=['numpy', 'py-cpuinfo', 'leancloud'],
+    packages=['deepmdbenchmark'],
+    entry_points={
+        'console_scripts': ['deepmdbenchmark = deepmdbenchmark.benchmark:run']
+    },
+    package_data={
+        'deepmdbenchmark': ['*.json','data/type.raw','data/set.*/*.npy'],
+    },
+)
