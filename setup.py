@@ -9,5 +9,5 @@ setup(
     package_data={
         'deepmdbenchmark': ['*.json','data/type.raw','data/set.*/*.npy'],
     },
-    version="0.0.1",
+    version="0.0.2",
 )

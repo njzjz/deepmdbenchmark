@@ -91,6 +91,8 @@ def get_env():
     if tf.test.is_gpu_available():
         hardware_type = "gpu"
         _, _, gpus = Local.get_resource()
+        if gpus is None:
+            gpus = [0]
         hardware_name = nvgpu.gpu_info()[gpus[0]]['type']
     else:
         hardware_type = "cpu"
