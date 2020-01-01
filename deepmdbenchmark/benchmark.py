@@ -89,7 +89,7 @@ def get_env():
     
     if tf.test.is_gpu_available():
         hardware_type = "gpu"
-        hardware_name = nvgpu.gpu_info()[nvgpu.available_gpus()[0]]['type']
+        hardware_name = nvgpu.gpu_info()[int(nvgpu.available_gpus()[0])]['type']
     else:
         hardware_type = "cpu"
         cpu_info = get_cpu_info()
