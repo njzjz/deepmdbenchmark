@@ -2,6 +2,7 @@ import json
 import os
 import timeit
 import logging
+import nvgpu
 
 import numpy as np
 from deepmd.Trainer import NNPTrainer
@@ -88,7 +89,7 @@ def get_env():
     
     if tf.test.is_gpu_available():
         hardware_type = "gpu"
-        hardware_name = tf.test.gpu_device_name()
+        hardware_name = nvgpu.gpu_info()[nvgpu.available_gpus()[0]]['type']
     else:
         hardware_type = "cpu"
         cpu_info = get_cpu_info()
