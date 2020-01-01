@@ -7,6 +7,7 @@ import nvgpu
 import numpy as np
 from deepmd.Trainer import NNPTrainer
 from deepmd.RunOptions import RunOptions
+import deepmd.cluster.Local as Local
 from deepmd.common import data_requirement
 from deepmd.DataSystem import DeepmdDataSystem
 from cpuinfo import get_cpu_info
@@ -89,7 +90,8 @@ def get_env():
     
     if tf.test.is_gpu_available():
         hardware_type = "gpu"
-        hardware_name = nvgpu.gpu_info()[int(nvgpu.available_gpus()[0])]['type']
+        _, _, gpus = Local.get_resource()
+        hardware_name = nvgpu.gpu_info()[gpus[0]]['type']
     else:
         hardware_type = "cpu"
         cpu_info = get_cpu_info()
