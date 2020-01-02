@@ -119,13 +119,8 @@ def upload(upload_dict):
         todo = Todo()
     for key, value in upload_dict.items():
         todo.set(key, value)
-    try:
-        todo.save()
-        logging.warning("Uploaded")
-    except:
-        logging.error("uploading failed, save dict as dpbenchrecord.json")
-        with open("dpbenchrecord.json", 'w') as f:
-            json.dump(uoload_dict, f)
+    todo.save()
+    logging.warning("Uploaded")
 
 def upload_dict():
     with open("dpbenchrecord.json") as f:
@@ -144,7 +139,12 @@ def run():
         "hardware_name": hardware_name,
         "hardware_type": hardware_type
     }
-    upload(upload_dict)
+    try:
+        upload(upload_dict)
+    except:
+        logging.error("uploading failed, save dict as dpbenchrecord.json")
+        with open("dpbenchrecord.json", 'w') as f:
+            json.dump(upload_dict, f)
 
 if __name__ == '__main__':
     run()
