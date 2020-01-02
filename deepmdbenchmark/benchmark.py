@@ -117,8 +117,17 @@ def upload(upload_dict):
         todo = Todo()
     for key, value in upload_dict.items():
         todo.set(key, value)
-    todo.save()
-    logging.warning("Uploaded")
+    try:
+        todo.save()
+        logging.warning("Uploaded")
+    except:
+        logging.error("uploading failed, save dict as dpbenchrecord.json")
+        with open("dpbenchrecord.json", 'w') as f:
+            json.dump(uoload_dict, f)
+
+def upload_dict():
+    with open("dpbenchrecord.json") as f:
+        upload(json.load(f))
 
 
 def run():
