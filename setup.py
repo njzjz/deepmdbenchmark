@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
     name="deepmdbenchmark",
-    install_requires=['numpy', 'py-cpuinfo', 'leancloud', 'nvgpu'],
+    install_requires=['numpy', 'py-cpuinfo', 'leancloud'],
     packages=['deepmdbenchmark'],
     entry_points={
         'console_scripts': ['deepmdbenchmark = deepmdbenchmark.benchmark:run',
@@ -11,5 +11,5 @@ setup(
     package_data={
         'deepmdbenchmark': ['*.json','data/type.raw','data/set.*/*.npy'],
     },
-    version="0.0.3",
+    version="0.0.4",
 )

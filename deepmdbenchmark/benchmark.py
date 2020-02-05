@@ -1,8 +1,8 @@
 import json
 import os
+import re
 import timeit
 import logging
-import nvgpu
 
 import numpy as np
 from deepmd.Trainer import NNPTrainer
@@ -15,6 +15,7 @@ import leancloud
 
 import deepmd
 import tensorflow as tf
+from tensorflow.python.client import device_lib
 
 
 class Benchmark:
@@ -90,10 +91,13 @@ def get_env():
     
     if tf.test.is_gpu_available():
         hardware_type = "gpu"
-        _, _, gpus = Local.get_resource()
-        if gpus is None:
-            gpus = [0]
-        hardware_name = nvgpu.gpu_info()[gpus[0]]['type']
+        gpus = [x.physical_device_desc for x in device_lib.list_local_devices() if x.device_type == 'GPU']
+        text = gpus[0]
+        m = re.search(', name: (.+?), ', text)
+        if m:
+            hardware_name = m.group(1)
+        else:
+            raise RuntimeError()
     else:
         hardware_type = "cpu"
         cpu_info = get_cpu_info()
